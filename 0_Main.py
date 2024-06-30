@@ -5,7 +5,6 @@ from utils.data_utils import load_data, display_data
 from utils.plot_utils import create_bar_chart
 from utils.analysis_utils import get_sentiment_pipeline, perform_sentiment_analysis, display_wordclouds
 
-
 # Set the cache directory for Hugging Face models
 os.environ["TRANSFORMERS_CACHE"] = "./hf_cache"
 
@@ -24,22 +23,6 @@ def download_csv(analysis_df):
     st.write("### Download Results")
     csv = analysis_df.to_csv(index=False)
     st.download_button(label="Download as CSV", data=csv, file_name='sentiment_analysis.csv', mime='text/csv')
-
-def display_filters(analysis_df):
-    st.write("### Filters")
-    sentiment_filter = st.selectbox('Filter by Sentiment', ['All', 'POSITIVE', 'NEGATIVE'])
-    
-    if sentiment_filter != 'All':
-        analysis_df = analysis_df[analysis_df['Sentiment'] == sentiment_filter]
-
-    page_size = 20
-    page_number = st.number_input('Page number', min_value=1, max_value=(len(analysis_df) // page_size) + 1, step=1)
-    
-    start_idx = (page_number - 1) * page_size
-    end_idx = start_idx + page_size
-    paginated_data = analysis_df[start_idx:end_idx]
-    
-    display_data(paginated_data, title="Filtered Sentiment Analysis Results")
 
 def main():
     st.set_page_config(page_title='Sentiment Review', page_icon='📗')
@@ -67,9 +50,8 @@ def main():
                 display_data(analysis_df, title="# Sentiment Analysis Results")
                 create_bar_chart(analysis_df)
                 display_wordclouds(analysis_df, selected_option)
-                display_filters(analysis_df)
                 download_csv(analysis_df)
-        
+
         if selected_option == "All":
             display_data(data, title="All Columns Data")
         else:
