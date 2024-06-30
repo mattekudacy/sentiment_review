@@ -26,8 +26,11 @@ def download_csv(analysis_df):
 
 def main():
     st.set_page_config(page_title='Sentiment Review', page_icon='📗')
+    with st.sidebar:
+        st.write("Try the app with this sample dataset from Kaggle.")
+        st.link_button("📊Sample Dataset", "https://drive.google.com/uc?export=download&id=1_KyW20TyW1j-cldU6qCpBCRhItGythUa")
     st.title('Sentiment Review📗📘')
-    st.write('Upload a CSV file to perform sentiment analysis on the text data.')
+    st.write('Upload a CSV file to perform sentiment analysis on a particular column.')
 
     file = st.file_uploader('Upload a file', type=['csv'])
     if file is not None:

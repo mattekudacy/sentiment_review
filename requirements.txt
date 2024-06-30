@@ -6,4 +6,3 @@ transformers
 wordcloud
 nltk
 torch
-sentence_transformers
